@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use environment port for Render
 
 const USERS_FILE = path.join(__dirname, 'users.json');
 
@@ -107,6 +107,11 @@ app.post('/api/login', (req, res) => {
     console.error('❌ Error in POST /api/login:', err);
     res.status(500).json({ message: 'Server error. Please try again later.' });
   }
+});
+
+// ✅ Route for "/": serve public/index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start server
