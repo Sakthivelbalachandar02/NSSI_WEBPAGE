@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New User</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0a0f3c, #d3d3d3);
+      color: #000;
+    }
+
+    header {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+    }
+
+    header h2 {
+      margin: 0;
+      color: #0a0f3c;
+      font-size: 22px;
+    }
+
+    .logout {
+      background: #ff5c5c;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #ffffffcc;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #0a0f3c;
+      margin-bottom: 20px;
+    }
+
+    .form-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form-group {
+      flex: 1 1 45%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .actions {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .actions button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .create-btn {
+      background: #4b62ff;
+      color: #fff;
+    }
+
+    .delete-btn {
+      background: #e53935;
+      color: #fff;
+      display: none;
+    }
+
+    .nav-btn {
+      background: #aaa;
+      display: none;
+    }
+
+    #successMsg {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+
+    /* ✅ Mobile Responsiveness */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .container {
+        padding: 20px;
+        margin: 20px;
+      }
+
+      .form-section {
+        flex-direction: column;
+      }
+
+      .form-group {
+        flex: 1 1 100%;
+      }
+
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .actions button {
+        width: 100%;
+      }
+
+      input {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>NSSI Engineering Solution</h2>
+    <button class="logout" onclick="location.href='login.html'">Logout</button>
+  </header>
+
+  <div class="container">
+    <h1>Add New User</h1>
+    <form id="userForm">
+      <div class="form-section">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" name="firstName" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="lastName" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" name="age" required>
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" name="city">
+        </div>
+        <div class="form-group">
+          <label>State</label>
+          <input type="text" name="state">
+        </div>
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" name="company">
+        </div>
+        <div class="form-group">
+          <label>Job Title</label>
+          <input type="text" name="position">
+        </div>
+        <div class="form-group" style="flex: 1 1 100%;">
+          <label>Profile Image URL (Optional)</label>
+          <input type="text" name="image">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="create-btn">Create User</button>
+        <button type="button" class="delete-btn" id="deleteUserBtn">Delete User</button>
+        <button type="button" class="nav-btn" id="goToDisplay">Go to Display Page</button>
+      </div>
+
+      <div id="successMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('userForm');
+    const deleteBtn = document.getElementById('deleteUserBtn');
+    const displayBtn = document.getElementById('goToDisplay');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const user = Object.fromEntries(data.entries());
+
+      if (!user.email.includes('@') || user.phone.length !== 10) {
+        alert("Invalid email or phone number format.");
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(user)
+        });
+
+        if (res.ok) {
+          successMsg.textContent = 'User added successfully!';
+          deleteBtn.style.display = 'inline-block';
+          displayBtn.style.display = 'inline-block';
+        } else {
+          const msg = await res.json();
+          alert(msg.message || 'Failed to add user');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Server error');
+      }
+    });
+
+    deleteBtn.addEventListener('click', async function() {
+      const email = form.elements['email'].value;
+      if (!email) return alert('Provide email of user to delete.');
+
+      try {
+        const res = await fetch(`/api/users/${email}`, {
+          method: 'DELETE'
+        });
+
+        if (res.ok) {
+          successMsg.textContent = 'User deleted successfully!';
+          deleteBtn.style.display = 'none';
+          displayBtn.style.display = 'none';
+          form.reset();
+        } else {
+          const msg = await res.json();
+          alert(msg.message || 'User not found.');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Server error');
+      }
+    });
+
+    displayBtn.addEventListener('click', function() {
+      location.href = 'display.html';
+    });
+  </script>
+</body>
+</html>

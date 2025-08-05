@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - NSSI Engineering Solution</title>
+  <style>
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0a0f3c, #d3d3d3);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: #ffffffdd;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 380px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #0a0f3c;
+      font-size: 22px;
+    }
+
+    .login-container .welcome {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .login-container img.logo {
+      width: 80px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: #0a0f3c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background: #3849c2;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 10px;
+      animation: shake 0.3s ease-in-out;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .error-message span {
+      font-size: 20px;
+    }
+
+    .animated-bg {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1581093588401-12f27ebfe7e6');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      filter: brightness(0.5);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 25px 20px;
+      }
+
+      .login-container h2 {
+        font-size: 20px;
+      }
+
+      .login-container .welcome {
+        font-size: 16px;
+      }
+
+      .login-container img.logo {
+        width: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+
+  <div class="login-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="NSSI Logo" class="logo">
+    <div class="welcome">Welcome to</div>
+    <h2>NSSI Engineering Solution</h2>
+    <form onsubmit="login(event)">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <div id="errorMsg" class="error-message" style="display:none;">
+        <span>😕</span> Oops! Entered wrong password.
+      </div>
+    </form>
+  </div>
+
+  <script>
+    async function login(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        if (res.ok) {
+          errorMsg.style.display = 'none';
+          location.href = 'home.html';
+        } else {
+          errorMsg.style.display = 'flex';
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        alert('Server error');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home - NSSI Engineering Solution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0a0f3c, #1f1f2e);
+      color: white;
+      animation: fadeIn 1.2s ease-in-out;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background: #4b4b4b;
+      padding: 20px 40px;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 60px 0 30px;
+      flex-wrap: wrap;
+    }
+
+    .main-btn {
+      background: linear-gradient(to right, #2f2f2f, #5a5a5a);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .main-btn:hover {
+      background: linear-gradient(to right, #5a5a5a, #2f2f2f);
+      transform: translateY(-2px);
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: linear-gradient(to bottom, #4b4b4b, #2f2f2f);
+      color: #fff;
+      padding: 30px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: #62a9ff;
+    }
+
+    .card img {
+      width: 60px;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 30px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .footer-left, .footer-right {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .footer-center {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    footer a {
+      color: #62a9ff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+
+      .footer-left, .footer-right {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>NSSI Engineering Solution</header>
+
+  <div class="button-group">
+    <button class="main-btn" onclick="location.href='display.html'">Display Data</button>
+    <button class="main-btn" onclick="location.href='addinguser.html'">Input Data</button>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712104.png" alt="Analytics Icon">
+      <h3>Analytics</h3>
+      <p>Visualize and monitor key data insights and performance across your system.</p>
+    </div>
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2721/2721614.png" alt="Data Power Icon">
+      <h3>Data Power</h3>
+      <p>Utilize powerful tools to process and transform business-critical information.</p>
+    </div>
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2659/2659360.png" alt="Automation Icon">
+      <h3>Automation</h3>
+      <p>Streamline repetitive operations with automation and intelligent control systems.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <p>📞 Phone: 7339264070</p>
+        <p>📸 Instagram: <a href="https://instagram.com/mom_lover0202" target="_blank">@mom_lover0202</a></p>
+      </div>
+      <div class="footer-right">
+        <p>📧 Email: <a href="mailto:sakthivelbalachandar2502@gmail.com">sakthivelbalachandar2502@gmail.com</a></p>
+        <p>🔗 LinkedIn: <a href="https://www.linkedin.com/in/sakthivel-balachandar-b0a1b9288/" target="_blank">Profile</a></p>
+      </div>
+    </div>
+    <div class="footer-center">
+      ❤️ Created by Sakthivel
+    </div>
+  </footer>
+</body>
+</html>
